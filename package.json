@@ -1,0 +1,30 @@
+{
+  "name": "solidify-contract",
+  "version": "0.1.0",
+  "description": "Solidify semi-structured data on EVM-compatible blockchains for educational purposes.",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test",
+    "deploy": "npx hardhat run scripts/deploy.ts",
+    "local_deploy": "npx hardhat run scripts/deploy.ts --network localhost"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yepengding/solidify-contract.git"
+  },
+  "keywords": [
+    "ethereum",
+    "smart contract",
+    "data persistence"
+  ],
+  "author": "Yepeng Ding",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yepengding/solidify-contract/issues"
+  },
+  "homepage": "https://github.com/yepengding/solidify-contract#readme",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "hardhat": "^2.13.1"
+  }
+}
