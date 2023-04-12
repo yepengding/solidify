@@ -3,7 +3,7 @@ import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
 import { expect } from "chai";
 import { ethers } from "hardhat";
 
-describe("Solidify", function () {
+describe("Solidify", () => {
 
     const ROLES = {
         DEFAULT_ADMIN: ethers.constants.HashZero,
@@ -43,7 +43,7 @@ describe("Solidify", function () {
         return { solidify, owner, anotherAccount };
     }
 
-    describe("AccessControl", function () {
+    describe("AccessControl", () => {
         it("Should set the right role admin", async () => {
             const { solidify, owner } = await loadFixture(deployedFixture);
 
