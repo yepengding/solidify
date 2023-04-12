@@ -1,12 +1,12 @@
 {
   "name": "solidify",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Solidify semi-structured data on EVM-compatible blockchains for educational purposes.",
   "scripts": {
     "compile": "npx hardhat compile",
     "test": "npx hardhat test",
-    "deploy": "npx hardhat run scripts/deploy.ts",
-    "local_deploy": "npx hardhat run scripts/deploy.ts --network localhost"
+    "deploy_local": "npx hardhat run scripts/deploy.ts --network localhost",
+    "deploy_sepolia": "npx hardhat run scripts/deploy.ts --network sepolia"
   },
   "repository": {
     "type": "git",
