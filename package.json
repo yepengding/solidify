@@ -1,6 +1,6 @@
 {
   "name": "solidify",
-  "version": "0.1.2",
+  "version": "0.1.5",
   "description": "Solidify semi-structured data on EVM-compatible blockchains for educational purposes.",
   "scripts": {
     "compile": "npx hardhat compile",
