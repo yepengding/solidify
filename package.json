@@ -1,6 +1,6 @@
 {
-  "name": "solidify-contract",
-  "version": "0.1.0",
+  "name": "solidify",
+  "version": "0.1.1",
   "description": "Solidify semi-structured data on EVM-compatible blockchains for educational purposes.",
   "scripts": {
     "compile": "npx hardhat compile",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yepengding/solidify-contract.git"
+    "url": "https://github.com/yepengding/solidify.git"
   },
   "keywords": [
     "ethereum",
@@ -20,11 +20,18 @@
   "author": "Yepeng Ding",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yepengding/solidify-contract/issues"
+    "url": "https://github.com/yepengding/solidify/issues"
   },
-  "homepage": "https://github.com/yepengding/solidify-contract#readme",
+  "homepage": "https://github.com/yepengding/solidify#readme",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@openzeppelin/hardhat-upgrades": "^1.22.1",
+    "ethers": "^5.7.2",
     "hardhat": "^2.13.1"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.2",
+    "@openzeppelin/contracts-upgradeable": "^4.8.2"
   }
 }
