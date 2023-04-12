@@ -8,7 +8,15 @@ Solidify semi-structured data on EVM-compatible blockchains for educational purp
 - Role-based access control
 - Upgradable contracts
 
-## Testing
+## Quickstart
+
+Install dependencies.
+
+```shell
+npm install
+```
+
+### Testing
 
 Run command
 
@@ -16,9 +24,9 @@ Run command
 npm run test
 ```
 
-## Deployment
+### Deployment
 
-### Local
+#### Local
 
 1. Start up Hardhat network
 
@@ -32,7 +40,7 @@ npx hardhat node
 npm run deploy_local
 ```
 
-### Sepolia
+#### Sepolia
 
 1. Set up [Infura](https://www.infura.io/) API key and [Sepolia](https://sepolia.etherscan.io/) account private key
    in `hardhat.config.ts`
