@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 
 /**
- * @title Solidify Contract
+ * @title Solidify Proxy Contract
  *
  * @author Yepeng Ding
  */
-contract Solidify is ERC721, AccessControl {
+contract SolidifyProxy is ERC721Upgradeable, AccessControlUpgradeable {
     // Roles
     bytes32 public constant RECORDER_ROLE = keccak256("RECORDER_ROLE");
 
@@ -39,11 +39,14 @@ contract Solidify is ERC721, AccessControl {
     );
 
     /**
-     * Constructor
+     * Proxy constructor
      *
-     * Grant DEFAULT_ADMIN_ROLE and RECORDER_ROLE to the deployer
+     * Initialize ERC 721.
+     * Grant DEFAULT_ADMIN_ROLE and RECORDER_ROLE to the deployer.
      */
-    constructor() ERC721("Solidify", "SDY") {
+    function initialize() initializer public {
+        __ERC721_init("Solidify", "SDY");
+        __AccessControl_init();
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(RECORDER_ROLE, msg.sender);
     }
@@ -172,7 +175,7 @@ contract Solidify is ERC721, AccessControl {
      */
     function supportsInterface(
         bytes4 interfaceId
-    ) public view virtual override(ERC721, AccessControl) returns (bool) {
+    ) public view virtual override(ERC721Upgradeable, AccessControlUpgradeable) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 }

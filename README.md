@@ -34,20 +34,33 @@ npm run test
 npx hardhat node
 ```
 
-2. Run command to deploy
+2. Run command to deploy normal version
 
 ```shell
-npm run deploy_local
+npm run deploy -- --network localhost
+```
+
+or upgradable version
+
+```shell
+npm run deploy_proxy -- --network localhost
+
 ```
 
 #### Sepolia
 
 1. Set up [Infura](https://www.infura.io/) API key and [Sepolia](https://sepolia.etherscan.io/) account private key
    in `hardhat.config.ts`
-2. Run command
+2. Run command to deploy normal version
 
 ```shell
-npm run deploy_sepolia
+npm run deploy -- --network sepolia
+```
+
+or upgradable version
+
+```shell
+npm run deploy_proxy -- --network sepolia
 ```
 
 ---
