@@ -1,5 +1,8 @@
 import { ethers } from "hardhat";
 
+/**
+ * Deploy Solidify
+ */
 async function main() {
   // Get deployer
   const [deployer] = await ethers.getSigners();
