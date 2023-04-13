@@ -100,7 +100,14 @@ describe("Solidify", () => {
 
                 expect(record[0]).to.equal(...PAYLOADS.RETRIEVE);
             });
+            it("Should retrieve a non-owned record at default", async () => {
+                const { solidify } = await loadFixture(createdFixture);
 
+                const record = await solidify.retrieve(...PAYLOADS.RETRIEVE);
+
+                expect(record[5])
+                    .to.equal(ethers.constants.AddressZero);
+            });
             it("Should revert with the right error if the record does not exist", async () => {
                 const { solidify } = await loadFixture(createdFixture);
 

@@ -75,10 +75,11 @@ contract Solidify is ERC721, AccessControl {
      * @return createdAt
      * @return UpdatedAt
      * @return isErased
+     * @return owner address
      */
     function retrieve(
         uint256 _id
-    ) external view returns (uint256, string memory, uint256, uint256, bool) {
+    ) external view returns (uint256, string memory, uint256, uint256, bool, address) {
         Record storage record = records[_id];
         require(record.createdAt != 0, "Record is not found.");
 
@@ -87,7 +88,8 @@ contract Solidify is ERC721, AccessControl {
             record.content,
             record.createdAt,
             record.updatedAt,
-            record.isErased
+            record.isErased,
+            recordOwners[_id]
         );
     }
 
