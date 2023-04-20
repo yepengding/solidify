@@ -2,11 +2,12 @@
 
 Solidify semi-structured data on EVM-compatible blockchains for educational purposes.
 
-- Semi-structured record persistence
-- On-chain **CRUD** operations
-- Non-fungible token issuing
-- Role-based access control
-- Upgradable contracts
+- [x] Semi-structured record persistence
+- [x] On-chain **CRUD** operations
+- [x] Non-fungible token issuing
+- [x] Role-based access control
+- [x] Upgradable contracts
+- [x] Frontend
 
 ## Quickstart
 
