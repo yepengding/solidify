@@ -10,7 +10,14 @@ class Web3Singleton {
     private static _instance: Web3;
 
     public static get Instance(): Web3 {
-        return this._instance || (this._instance = new Web3(env.web3Provider));
+        if (!this._instance) {
+            this._instance = new Web3(env.web3Provider);
+            // Add environment account to wallet if provided
+            if (env.account.privateKey) {
+                this._instance.eth.accounts.wallet.add(env.account.privateKey);
+            }
+        }
+        return this._instance
     }
 }
 

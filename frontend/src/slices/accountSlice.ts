@@ -1,10 +1,8 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import env from "@/core/env";
+import {Account} from "@/models/Contract";
 
-interface AccountState {
-    address: string,
-    privateKey: string
-}
+type AccountState = Account
 
 const initialState: AccountState = {
     ...env.account
