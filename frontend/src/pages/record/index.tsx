@@ -9,27 +9,44 @@ import {
     Typography
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import {useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {create, erase, retrieve, update} from "@/contracts/solidify";
 import env from "@/core/env";
+import Notification from "@/components/Notification";
 import {Record} from "@/models/Solidify";
+import {NotificationType} from "@/models/Component";
+import {useDispatch, useSelector} from "react-redux";
+import {changeTo, selectAccount} from "@/slices/accountSlice";
 
 export default function RecordIndex() {
 
-    const [openDialog, setOpenDialog] = useState<boolean>(false)
     const [action, setAction] = useState<string>("")
     const [record, setRecord] = useState<Record>({
         id: 0,
         content: ""
     })
+
     const [response, setResponse] = useState({
         message: "",
         data: ""
     })
+    const [notification, setNotification] = useState<NotificationType>({
+        open: false,
+        message: ""
+    })
 
+    const [openDialog, setOpenDialog] = useState<boolean>(false)
+
+    // Load from store
+    const account = useSelector(selectAccount)
+    const dispatch = useDispatch()
+
+    /**
+     * Generate dialog buttons binding with click events
+     */
     const dialogButton = () => {
         const createClickEvent = () => {
-            create(record, env.account).then(r => {
+            create(record, account).then(r => {
                 if (r.success) {
                     setResponse({...r, data: JSON.stringify(r.data)})
                 } else {
@@ -49,7 +66,7 @@ export default function RecordIndex() {
         }
 
         const updateClickEvent = () => {
-            update(record, env.account).then(r => {
+            update(record, account).then(r => {
                 if (r.success) {
                     setResponse({...r, data: JSON.stringify(r.data)})
                 } else {
@@ -59,7 +76,7 @@ export default function RecordIndex() {
         }
 
         const deleteClickEvent = () => {
-            erase(record.id, env.account).then(r => {
+            erase(record.id, account).then(r => {
                 if (r.success) {
                     setResponse({...r, data: JSON.stringify(r.data)})
                 } else {
@@ -82,6 +99,48 @@ export default function RecordIndex() {
         }
     }
 
+    /**
+     * Connect to browser provider
+     */
+    const connectBrowserProvider = useCallback(async () => {
+        if (!window.ethereum) {
+            setNotification({open: true, message: "No external provider found", severity: "error"})
+            return
+        }
+        await window.ethereum.enable();
+
+        const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+        });
+
+        if (accounts.length > 0) {
+            dispatch(changeTo({address: accounts[0], privateKey: ""}))
+        } else {
+            setNotification({open: true, message: "No account found", severity: "error"})
+        }
+    }, [dispatch])
+
+    useEffect(() => {
+        if (!window.ethereum) {
+            setNotification({open: true, message: "No external provider found", severity: "error"})
+            return
+        }
+
+        const accountChanged = async (newAccount: string) => {
+            dispatch(changeTo({address: newAccount[0], privateKey: ""}))
+            setNotification({open: true, message: `Account changed to ${account.address}`, severity: "success"})
+        }
+
+        const chainChanged = async () => {
+            window.location.reload()
+        }
+
+        window.ethereum.on("accountsChanged", accountChanged);
+        window.ethereum.on("chainChanged", chainChanged);
+
+
+    }, [account, dispatch]);
+
     return (
         <Container maxWidth="lg">
             <Box
@@ -95,6 +154,13 @@ export default function RecordIndex() {
             >
                 <Typography variant="h4" component="h1" gutterBottom>
                     Record CRUD
+                </Typography>
+
+                <Typography gutterBottom>
+                    Deployed address: {env.contractAddress}
+                </Typography>
+                <Typography gutterBottom>
+                    <Button onClick={connectBrowserProvider}>Connect</Button> Current account address: {account.address}
                 </Typography>
                 <Box sx={{my: 4, display: 'flex', flexWrap: 'wrap'}}>
                     <Box sx={styles.methodBox}>
@@ -144,6 +210,7 @@ export default function RecordIndex() {
                     label="Message"
                     fullWidth
                     disabled
+                    sx={{my: 2}}
                 />
 
                 <TextField
@@ -154,6 +221,7 @@ export default function RecordIndex() {
                     rows={4}
                     fullWidth
                     disabled
+                    sx={{my: 2}}
                 />
             </Box>
 
@@ -190,6 +258,8 @@ export default function RecordIndex() {
                     {dialogButton()}
                 </DialogActions>
             </Dialog>
+
+            <Notification notification={notification} setNotification={setNotification}></Notification>
         </Container>
     )
 }

@@ -1,11 +1,13 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import env from "@/core/env";
 import {Account} from "@/models/Contract";
+import {RootState} from "@/core/store";
 
 type AccountState = Account
 
 const initialState: AccountState = {
-    ...env.account
+    address: "",
+    privateKey: ""
 }
 
 export const accountSlice = createSlice({
@@ -35,5 +37,7 @@ export const accountSlice = createSlice({
 })
 
 export const {restore, changeTo} = accountSlice.actions
+
+export const selectAccount = (state: RootState) => state.account
 
 export default accountSlice.reducer

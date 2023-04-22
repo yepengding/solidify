@@ -18,9 +18,11 @@ npm run dev
 
 ### GUI
 
-Invoke Solidify contract methods by interacting with GUI.
+Invoke Solidify contract methods by interacting with GUI via browser provider.
 
 http://localhost:3000/record
+
+![GUI](docs/figures/gui.png)
 
 ### API
 
@@ -65,3 +67,4 @@ curl --location --request POST 'http://localhost:3000/api/record/erase/1'
 # References
 
 - [Next.js](https://nextjs.org/)
+- [Web3.js](https://github.com/web3/web3.js)
