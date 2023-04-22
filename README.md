@@ -7,7 +7,8 @@ Solidify semi-structured data on EVM-compatible blockchains for educational purp
 - [x] Non-fungible token issuing
 - [x] Role-based access control
 - [x] Upgradable contracts
-- [x] Frontend
+- [x] API-based contract interaction
+- [x] GUI-baseed contract interaction via browser providers
 
 ## Quickstart
 
